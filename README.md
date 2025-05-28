@@ -1,65 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><img src="public\img\logof.png" width="400" alt="Dental clinic logo"></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Dental clinic management system
 
-## About Laravel
+A web application for a dental clinic that provides efficient clinic management and improves the quality of patient care.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Technology stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 8.2
+- Laravel 10.4
+- MySQL
+- Tailwind CSS
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+🧑 Patient
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Register and log in
+- Access personal dashboard
+- Book appointments with dentists
+- View appointment history
+- View invoices and payment history
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+🧾 Receptionist
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Log in to the system
+- Manage appointments for all patients
+- Manage patient profiles
+- Handle invoices and payments
 
-## Laravel Sponsors
+🦷 Dentist
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Log in to the system
+- Set and update personal work schedule
+- View assigned appointments
+- Manage treatment details
+- Issue invoices for completed treatments
 
-### Premium Partners
+🛠️ Super admin
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Full access to all system modules
+- Manage appointments
+- Manage receptionists and dentists
+- Manage clinic services
+- Monitor overall system activity
 
-## Contributing
+## Screenshots
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Home page
+![example](screenshots/dental_clinic1.png)
 
-## Code of Conduct
+#### Registration page
+![example](screenshots/dental_clinic_register.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Patient pages
+![example](screenshots/dental_clinic_patient1.png)
+![example](screenshots/dental_clinic_patient2.png)
+![example](screenshots/dental_clinic_patient3.png)
+![example](screenshots/dental_clinic_patient4.png)
 
-## Security Vulnerabilities
+#### Dentist pages
+![example](screenshots/dental_clinic_dentist1.png)
+![example](screenshots/dental_clinic_dentist2.png)
+![example](screenshots/dental_clinic_dentist3.png)
+![example](screenshots/dental_clinic_dentist4.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Receptionist pages
+![example](screenshots/dental_clinic_receptionist1.png)
+![example](screenshots/dental_clinic_receptionist2.png)
+
+#### Super admin pages
+![example](screenshots/dental_clinic_super_admin1.png)
+![example](screenshots/dental_clinic_super_admin2.png)
+
 
 ## License
 
