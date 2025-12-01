@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\Schedule\StoreScheduleRequest;
 use App\Http\Requests\Admin\Schedule\UpdateScheduleRequest;
-use App\Models\schedule;
+use App\Models\Schedule;
 use App\Services\DentistService;
 use App\Services\ScheduleService;
 use Illuminate\Http\Request;

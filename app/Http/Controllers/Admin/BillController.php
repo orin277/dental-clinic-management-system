@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\Bill\StoreBillRequest;
 use App\Http\Requests\Admin\Bill\UpdateBillRequest;
-use App\Models\bill;
+use App\Models\Bill;
 use App\Services\BillService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

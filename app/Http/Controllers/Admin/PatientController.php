@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\Patient\StorePatientRequest;
 use App\Http\Requests\Admin\Patient\UpdatePatientRequest;
-use App\Models\patient;
-use App\Services\patientService;
+use App\Models\Patient;
+use App\Services\PatientService;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 

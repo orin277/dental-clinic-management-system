@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\Education\StoreEducationRequest;
 use App\Http\Requests\Admin\Education\UpdateEducationRequest;
-use App\Models\education;
+use App\Models\Education;
 use App\Services\DentistService;
 use App\Services\EducationService;
 use Illuminate\Http\Request;

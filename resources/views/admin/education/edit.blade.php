@@ -19,7 +19,7 @@
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div>
                                 <x-form.label for="dentist_id">Стоматолог</x-form.label>
-                                <x-form.select id="dentist_id" name="dentist_id" :options="$dentists" :value="$dentist->id" />
+                                <x-form.select id="dentist_id" name="dentist_id" :options="$dentists" :value="$education->id" />
                                 <x-form.input-error :messages="$errors->get('dentist_id')" class="mt-2" />
                             </div>
                             <div class="w-full">

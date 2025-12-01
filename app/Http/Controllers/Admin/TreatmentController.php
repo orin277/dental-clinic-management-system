@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\Service\UpdateServiceRequest;
 use App\Http\Requests\Admin\Treatment\StoreTreatmentRequest;
 use App\Http\Requests\Admin\Treatment\UpdateTreatmentRequest;
-use App\Models\treatment;
+use App\Models\Treatment;
 use App\Services\AppointmentService;
 use App\Services\ToothService;
 use App\Services\TreatmentService;
