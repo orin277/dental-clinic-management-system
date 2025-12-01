@@ -1,10 +1,13 @@
+@php
+    $appointmentStatuses = $appointmentStatuses->pluck('name', 'id')->toArray();
+@endphp
 <x-app-layout>
     <div class="flex overflow-hidden bg-gray-50 dark:bg-gray-900">
         <x-sidebar/>
             <div class="relative w-full h-full overflow-y-auto dark:bg-gray-900 lg:ml-64">
                 <div class="w-2/4 rounded-lg shadow mx-10 mt-8 px-14 py-8 bg-white border-b border-gray-200">
                     <div class="flex flex-col">
-                        <h2 class="mb-6 text-2xl font-inter-bold text-gray-900 dark:text-white">Детальна інформація прийому №{{ $appointment->id }}</h2>
+                        <x-admin-panel.h2>Детальна інформація прийому №{{ $appointment->id }}</x-admin-panel.h2>
                         <form id="form-appointment" action="{{ route('dentist.appointments.update', $appointment->id) }}" method="post">
                             @csrf
                             @method('patch')
@@ -40,29 +43,19 @@
 
                                 <div class="w-full">
                                     <label for="reason" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Причина звернення</label>
-                                    <input type="text" name="reason" id="reason" value="{{ old('reason') ?? $appointment->reason }}" class="@error('reason') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" maxlength="300">
-                                    @error('reason')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                    @enderror
+                                    <x-form.text-input name="reason" id="reason" :value="$appointment->reason" minlength="0" maxlength="300" required />
+                                    <x-form.input-error :messages="$errors->get('reason')" class="mt-2" />
                                 </div>
                                 <div class="w-full">
                                     <label for="appointment_status_id" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Статус</label>
-                                    <select id="appointment_status_id" name="appointment_status_id" class="@error('appointment_status_id') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        @foreach ($appointmentStatuses as $appointmentStatus)
-                                            <option {{ $appointment->appointment_status_id === $appointmentStatus->id ? ' selected' : '' }} value="{{ $appointmentStatus->id }}">{{ $appointmentStatus->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <x-form.select id="appointment_status_id" name="appointment_status_id" :options="$appointmentStatuses" :value="$appointment->appointment_status_id" />
                                 </div>
                             </div>
-                            <button type="submit" class="font-inter-medium mt-6 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                Змінити
-                            </button>
+                            <x-form.button>Змінити</x-form.button>
                         </form>
                         <form class="sm:pr-3 flex items-center w-full space-x-3 md:w-auto"
                               action="{{ route('dentist.generate_pdf_information_about_appointment', $appointment->id) }}" method="GET">
-                            <button type="submit" class="font-inter-medium mt-6 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                Сформувати звіт
-                            </button>
+                            <x-form.button>Сформувати звіт</x-form.button>
                         </form>
                     </div>
                 </div>

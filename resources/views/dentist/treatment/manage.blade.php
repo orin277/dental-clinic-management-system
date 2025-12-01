@@ -1,54 +1,42 @@
+@php
+    $teeth = $teeth->pluck('number', 'id')->toArray();
+@endphp
 <x-app-layout>
     <div class="flex overflow-hidden bg-gray-50 dark:bg-gray-900">
         <x-sidebar/>
         <div class="relative w-full h-full overflow-y-auto dark:bg-gray-900 lg:ml-64">
             <div class="w-1/2 rounded-lg shadow mx-10 mt-8 px-14 py-8 bg-white border-b border-gray-200">
                 <div class="flex flex-col">
-                    <h2 class="mb-4 text-2xl font-inter-bold text-gray-900 dark:text-white">Додати запис лікування до прийому №{{ $appointmentId }}</h2>
+                    <x-admin-panel.h2>Додати запис лікування до прийому №{{ $appointmentId }}</x-admin-panel.h2>
                     <form id="form-treatment" action="{{ route('dentist.treatments.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="appointment_id" value="{{ $appointmentId }}">
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="w-full">
-                                <label for="diagnosis" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Діагноз</label>
-                                <input type="text" name="diagnosis" id="diagnosis" class="@error('date') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" minlength="3" maxlength="100">
-                                @error('diagnosis')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="diagnosis">Діагноз</x-form.label>
+                                <x-form.text-input name="diagnosis" id="diagnosis" minlength="3" maxlength="100" required />
+                                <x-form.input-error :messages="$errors->get('diagnosis')" class="mt-2" />
                             </div>
                             <div>
-                                <label for="tooth_id" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Зуб</label>
-                                <select id="tooth" name="tooth_id" class="@error('date') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    @foreach ($teeth as $tooth)
-                                        <option value="{{ $tooth->id }}" {{ old('tooth_id') == $tooth->id ? 'selected' : '' }}>{{ $tooth->number }}</option>
-                                    @endforeach
-                                </select>
-                                @error('tooth_id')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="tooth_id">Зуб</x-form.label>
+                                <x-form.select id="tooth_id" name="tooth_id" :options="$teeth" />
+                                <x-form.input-error :messages="$errors->get('tooth_id')" class="mt-2" />
                             </div>
 
                         </div>
                         <div class="w-full mt-4">
-                            <label for="treatment_description" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Опис лікування</label>
-                            <textarea id="treatment-description" name="treatment_description" rows="4" class="@error('date') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border block p-2.5 w-full text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" maxlength="300">{{ old('treatment_description') }}</textarea>
-                            @error('treatment_description')
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                            @enderror
+                            <x-form.label for="treatment_description">Опис лікування</x-form.label>
+                            <x-form.textarea id="treatment_description" name="treatment_description" rows="4" maxlength="300" minlength="1" required></x-form.textarea>
+                            <x-form.input-error :messages="$errors->get('treatment_description')" class="mt-2" />
                         </div>
-                        <button type="submit" class="font-inter-medium mt-6 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            Додати
-                        </button>
+                        <x-form.button>Додати</x-form.button>
                     </form>
                     <form class="sm:pr-3 flex items-center w-full space-x-3 md:w-auto"
                           action="{{ route('dentist.generate_pdf_information_about_treatment', $appointmentId) }}" method="GET">
-                        <button type="submit" class="font-inter-medium mt-6 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            Сформувати звіт
-                        </button>
+                        <x-form.button>Сформувати звіт</x-form.button>
                     </form>
                 </div>
             </div>
-
 
             <div id="treatments" class="mx-10 mt-8 mb-8">
                 @foreach ($treatments as $treatment)
@@ -63,15 +51,13 @@
                             </div>
                         </div>
                         <div class="px-8 pb-8 space-x-4 whitespace-nowrap flex">
-                            <a href="{{ route('dentist.treatments.edit', $treatment->id) }}" class="px-4 py-2 border border-transparent text-sm font-inter-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <x-primary-button-link :href="route('dentist.treatments.edit', $treatment->id)" class="rounded-md">
                                 Змінити
-                            </a>
+                            </x-primary-button-link>
                             <form action="{{ route('dentist.treatments.destroy', $treatment->id) }}" method="POST" class="">
                                 @csrf
                                 @method('destroy')
-                                <button type="submit" class="px-4 py-2 border border-transparent text-sm font-inter-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                    Видалити
-                                </button>
+                                <x-form.button>Видалити</x-form.button>
                             </form>
                         </div>
                     </div>

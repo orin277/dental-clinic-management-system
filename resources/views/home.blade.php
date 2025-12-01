@@ -11,10 +11,9 @@
                     <br>
                     або зателефонуйте на наш номер телефону
                 </p>
-
-                <a href="{{ route('login') }}" class="px-8 py-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-inter-medium rounded-lg text-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <x-primary-button-link :href="route('login')" class="px-8 py-4 rounded-lg text-xl">
                     Увійти
-                </a>
+                </x-primary-button-link>
             </div>
 
             <div class="mt-24 w-11/12 h-11/12">
@@ -27,7 +26,6 @@
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
             <div class="max-w-screen-md mb-8 lg:mb-16 text-center mx-auto">
                 <h2 class="mb-4 text-4xl tracking-tight font-inter-extra-bold text-gray-900 dark:text-white">Наші переваги</h2>
-{{--                <p class="text-gray-500 sm:text-xl dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>--}}
             </div>
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
                 <div class="text-center">

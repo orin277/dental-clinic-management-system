@@ -16,7 +16,6 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-50">
-{{--            @include('layouts.navigation')--}}
             <x-admin-panel.header/>
 
             <!-- Page Heading -->

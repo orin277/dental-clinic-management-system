@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Appointment\StoreAppointmentRequest;
 use App\Http\Requests\Admin\Appointment\UpdateAppointmentRequest;
-use App\Models\appointment;
+use App\Models\Appointment;
 use App\Services\AppointmentService;
 use App\Services\AppointmentStatusService;
 use App\Services\DentistService;

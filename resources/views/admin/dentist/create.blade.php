@@ -1,108 +1,79 @@
+@php
+    $dentistSpecializations = $dentistSpecializations->pluck('name', 'id')->toArray();
+    $sex = [1 => 'Чоловік', 2 => 'Жінка'];
+@endphp
 <x-app-layout>
     <div class="flex overflow-hidden bg-gray-50 dark:bg-gray-900">
         <x-sidebar/>
         <div class="relative w-full h-full overflow-y-auto dark:bg-gray-900 lg:ml-64">
             <div class="rounded-lg shadow mx-10 mt-8 px-14 py-8 bg-white border-b border-gray-200">
                 <div class="flex flex-col">
-                    <h2 class="mb-4 text-2xl font-inter-bold text-gray-900 dark:text-white">Додавання стоматолога</h2>
+                    <x-admin-panel.h2>Додавання стоматолога</x-admin-panel.h2>
                     <form action="{{ route('admin.dentists.store') }}" method="post">
                         @csrf
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="w-full">
-                                <label for="name" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Ім'я</label>
-                                <input type="text" name="name" id="name" value="{{ old('name') }}" class="@error('name') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" minlength="1" maxlength="30">
-                                @error('name')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="name">Ім'я</x-form.label>
+                                <x-form.text-input name="name" id="name" minlength="1" maxlength="30" required />
+                                <x-form.input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="surname" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Прізвище</label>
-                                <input type="text" name="surname" id="surname" value="{{ old('surname') }}" class="@error('surname') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" minlength="1" maxlength="40">
-                                @error('surname')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="surname">Прізвище</x-form.label>
+                                <x-form.text-input name="surname" id="surname" minlength="1" maxlength="40" required />
+                                <x-form.input-error :messages="$errors->get('surname')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="patronymic" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">По батькові</label>
-                                <input type="text" name="patronymic" id="patronymic" value="{{ old('patronymic') }}" class="@error('patronymic') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" minlength="1" maxlength="30">
-                                @error('patronymic')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="patronymic">По батькові</x-form.label>
+                                <x-form.text-input name="patronymic" id="patronymic" minlength="1" maxlength="30" required />
+                                <x-form.input-error :messages="$errors->get('patronymic')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="date_of_birth" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Дата народження</label>
-                                <input type="date" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth') }}" class="@error('date_of_birth') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
-                                @error('date_of_birth')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="date_of_birth">Дата народження</x-form.label>
+                                <x-form.date-input name="date_of_birth" id="date_of_birth" required />
+                                <x-form.input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="sex" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Стать</label>
-                                <select id="sex" name="sex" class="@error('sex') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option value="1" {{ old('sex') == '1' ? 'selected' : '' }}>Чоловік</option>
-                                    <option value="2" {{ old('sex') == '2' ? 'selected' : '' }}>Жінка</option>
-                                </select>
-                                @error('sex')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="sex">Стать</x-form.label>
+                                <x-form.select id="sex" name="sex" :options="$sex" />
+                                <x-form.input-error :messages="$errors->get('sex')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="phone" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Номер телефону</label>
-                                <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" class="@error('phone') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
-                                @error('phone')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="phone">Номер телефону</x-form.label>
+                                <x-form.tel-input name="phone" id="phone" required />
+                                <x-form.input-error :messages="$errors->get('phone')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="email" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="email" name="email" id="email" value="{{ old('email') }}" class="@error('email') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" minlength="8" maxlength="255">
-                                @error('email')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="email">Email</x-form.label>
+                                <x-form.email-input name="email" id="email" required />
+                                <x-form.input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="address" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Адреса</label>
-                                <input type="text" name="address" id="address" value="{{ old('address') }}" class="@error('address') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror bordertext-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" maxlength="100">
-                                @error('address')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="address">Адреса</x-form.label>
+                                <x-form.text-input name="address" id="address" minlength="0" maxlength="100" />
+                                <x-form.input-error :messages="$errors->get('address')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="cabinet" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Кабінет</label>
-                                <input type="number" name="cabinet" id="cabinet" value="{{ old('cabinet') }}" class="@error('cabinet') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
-                                @error('cabinet')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="cabinet">Кабінет</x-form.label>
+                                <x-form.number-input name="cabinet" id="cabinet" required />
+                                <x-form.input-error :messages="$errors->get('cabinet')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="work_experience" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Стаж роботи</label>
-                                <input type="number" name="work_experience" id="work_experience" value="{{ old('work_experience') }}" class="@error('work_experience') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
-                                @error('work_experience')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="work_experience">Стаж роботи</x-form.label>
+                                <x-form.number-input name="work_experience" id="work_experience" required />
+                                <x-form.input-error :messages="$errors->get('work_experience')" class="mt-2" />
                             </div>
                             <div>
-                                <label for="dentist_specialization_id" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Спеціалізація</label>
-                                <select id="dentist_specialization_id" name="dentist_specialization_id" class="@error('dentist_specialization_id') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    @foreach ($dentist_specializations as $dentist_specialization)
-                                        <option value="{{ $dentist_specialization->id }}" {{ old('dentist_specialization_id') == $dentist_specialization->id ? 'selected' : '' }}>{{ $dentist_specialization->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('dentist_specialization_id')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="dentist_specialization_id">Спеціалізація</x-form.label>
+                                <x-form.select id="dentist_specialization_id" name="dentist_specialization_id" :options="$dentistSpecializations" />
+                                <x-form.input-error :messages="$errors->get('dentist_specialization_id')" class="mt-2" />
                             </div>
                             <div class="w-full">
-                                <label for="password" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Пароль</label>
-                                <input type="password" name="password" id="password" value="{{ old('password') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="" minlength="8" maxlength="30">
-                                @error('password')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.label for="password">Пароль</x-form.label>
+                                <x-form.password-input name="password" id="password" required />
+                                <x-form.input-error :messages="$errors->get('password')" class="mt-2" />
                             </div>
                         </div>
-                        <button type="submit" class="font-inter-medium mt-6 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            Додати
-                        </button>
+                        <x-form.button>Додати</x-form.button>
                     </form>
                 </div>
             </div>

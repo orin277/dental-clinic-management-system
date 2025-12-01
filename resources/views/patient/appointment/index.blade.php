@@ -1,3 +1,6 @@
+@php
+    $appointmentStatuses = $appointmentStatuses->pluck('name', 'id')->toArray();
+@endphp
 <x-app-layout>
     <div class="flex overflow-hidden dark:bg-gray-900">
         <x-sidebar/>
@@ -5,41 +8,37 @@
             <div class="rounded-lg shadow p-6 mx-10 my-8 bg-white block sm:flex items-center justify-between border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <div class="w-full mb-1">
                     <div class="mb-4">
-                        <h1 class="text-2xl font-inter-bold text-gray-900 sm:text-2xl dark:text-white">Прийоми</h1>
+                        <x-admin-panel.h1>Прийоми</x-admin-panel.h1>
                     </div>
                     <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
                         <div class="flex items-center mb-4 sm:mb-0">
                             <form class="sm:pr-3" action="{{ route("patient.appointments.index") }}" method="GET">
                                 <div class="flex items-center w-full space-x-3 md:w-auto">
                                     <label class="">Від</label>
-                                    <input type="date" name="filter[from]"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                           placeholder="Від"
-                                           value="{{ request('filter') ? request('filter')['from'] : '' }}"
-                                    >
+                                    <x-form.date-input
+                                        name="filter[from]"
+                                        id="from-filter"
+                                        :value="request('filter') ? request('filter')['from'] : ''"
+                                        placeholder="Від"
+                                        required
+                                    />
                                     <label class="">До</label>
-                                    <input type="date" name="filter[to]"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                           placeholder="До"
-                                           value="{{ request('filter') ? request('filter')['to'] : '' }}"
-                                    >
-                                    <select id="status" name="filter[appointment_status_id]" class="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option value="">Статус прийому</option>
-                                        @foreach($appointmentStatuses as $appointmentStatus)
-                                        <option
-                                            value="{{ $appointmentStatus->id }}"
-                                            {{ request('filter') && request('filter')['appointment_status_id'] == $appointmentStatus->id ? 'selected' : '' }}
-                                        >
-                                            {{ $appointmentStatus->name }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                        <span class="sr-only">Пошук</span>
-                                    </button>
+                                    <x-form.date-input
+                                        name="filter[to]"
+                                        id="to-filter"
+                                        :value="request('filter') ? request('filter')['to'] : ''"
+                                        placeholder="До"
+                                        required
+                                    />
+                                    <x-form.select
+                                        id="appointment_status_filter"
+                                        name="filter[appointment_status_id]"
+                                        class="w-64"
+                                        :options="$appointmentStatuses"
+                                        :value="request('filter') && request('filter')['appointment_status_id']"
+                                        first_item="Статус прийому"
+                                    />
+                                    <x-form.search-button>Пошук</x-form.search-button>
                                 </div>
                             </form>
                         </div>
@@ -74,9 +73,9 @@
                                     @if($appointment->appointment_status_id === 4 or $appointment->appointment_status_id === 1)
                                     <div class="flex mt-5">
                                         @if($appointment->appointment_status_id === 4)
-                                        <a href="{{ route('patient.appointments.show', $appointment->id) }}" class="px-4 py-2 border border-transparent text-sm font-inter-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                            Переглянути деталі
-                                        </a>
+                                            <x-primary-button-link :href="route('patient.appointments.show', $appointment->id)">
+                                                Переглянути деталі
+                                            </x-primary-button-link>
                                         @endif
                                         @if($appointment->appointment_status_id === 1)
                                             <form action="{{ route('patient.appointments.cancel', $appointment->id) }}" method="POST" class="">
@@ -101,6 +100,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </x-app-layout>

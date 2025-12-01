@@ -18,53 +18,53 @@
         @method('patch')
         <div class="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div>
-                <x-input-label for="name" :value="__('Ім\'я')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-                <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                <x-form.label for="name">Ім'я</x-form.label>
+                <x-form.text-input id="name" name="name" :value="$user->name" class="mt-1" minlength="1" maxlength="30" required />
+                <x-form.input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
 
             <div>
-                <x-input-label for="surname" :value="__('Прізвище')" />
-                <x-text-input id="surname" name="surname" type="text" class="mt-1 block w-full" :value="old('surname', $user->surname)" required autofocus autocomplete="surname" />
-                <x-input-error class="mt-2" :messages="$errors->get('surname')" />
+                <x-form.label for="surname">Прізвище</x-form.label>
+                <x-form.text-input id="surname" name="surname" :value="$user->surname" class="mt-1" minlength="1" maxlength="40" required />
+                <x-form.input-error class="mt-2" :messages="$errors->get('surname')" />
             </div>
 
             <div>
-                <x-input-label for="patronymic" :value="__('По батькові')" />
-                <x-text-input id="patronymic" name="patronymic" type="text" class="mt-1 block w-full" :value="old('patronymic', $user->patronymic)" required autofocus autocomplete="patronymic" />
-                <x-input-error class="mt-2" :messages="$errors->get('patronymic')" />
+                <x-form.label for="patronymic">По батькові</x-form.label>
+                <x-form.text-input id="patronymic" name="patronymic" :value="$user->patronymic" class="mt-1" minlength="1" maxlength="40" required />
+                <x-form.input-error class="mt-2" :messages="$errors->get('patronymic')" />
             </div>
 
             <div>
-                <x-input-label for="phone" :value="__('Номер телефону')" />
-                <x-text-input id="phone" name="phone" type="tel" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="phone" />
-                <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+                <x-form.label for="phone">Номер телефону</x-form.label>
+                <x-form.text-input id="phone" name="phone" :value="$user->phone" class="mt-1" minlength="1" maxlength="30" required />
+                <x-form.input-error class="mt-2" :messages="$errors->get('phone')" />
             </div>
 
             <div>
-                <x-input-label for="date_of_birth" :value="__('Дата народження')" />
-                <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full" :value="old('date_of_birth', $user->date_of_birth)" required autofocus autocomplete="date_of_birth" />
-                <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
+                <x-form.label for="date_of_birth">Дата народження</x-form.label>
+                <x-form.date-input name="date_of_birth" id="date_of_birth" :value="$user->date_of_birth" class="mt-1" required />
+                <x-form.input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
             </div>
 
             <div>
-                <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                <x-form.label for="email">Email</x-form.label>
+                <x-form.email-input id="email" name="email" class="mt-1 block w-full" :value="$user->email" />
+                <x-form.input-error class="mt-2" :messages="$errors->get('email')" />
 
                 @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                     <div>
                         <p class="text-sm mt-2 text-gray-800">
-                            {{ __('Your email address is unverified.') }}
+                            {{ __('Ваш email не підтверджено.') }}
 
                             <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                {{ __('Click here to re-send the verification email.') }}
+                                {{ __('Відправити знову підтвердження на email') }}
                             </button>
                         </p>
 
                         @if (session('status') === 'verification-link-sent')
                             <p class="mt-2 font-medium text-sm text-green-600">
-                                {{ __('A new verification link has been sent to your email address.') }}
+                                {{ __('Нове підтвердження було відправлено на ваш email') }}
                             </p>
                         @endif
                     </div>
@@ -82,7 +82,7 @@
                 </span>
             </label>
             <img src="{{ asset("storage/avatars/" . Auth::user()->avatar) }}" class="w-44 mt-4">
-            <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
+            <x-form.input-error class="mt-2" :messages="$errors->get('avatar')" />
 {{--            <x-input-label for="avatar" :value="__('Фото профілю')" />--}}
 {{--            <div class="">--}}
 {{--                <input id="avatar" type="file" class="block w-full mt-1 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" name="avatar" value="{{ old('avatar') }}" autocomplete="avatar">--}}

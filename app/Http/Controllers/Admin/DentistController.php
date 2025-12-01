@@ -29,12 +29,12 @@ class DentistController extends Controller
 
     public function create() {
         try {
-            $dentist_specializations = DentistSpecialization::get();
+            $dentistSpecializations = DentistSpecialization::get();
         } catch (\Exception $e) {
             return back()->withError($e->getMessage())->withInput();
         }
 
-        return view('admin/dentist/create', compact('dentist_specializations'));
+        return view('admin/dentist/create', compact('dentistSpecializations'));
     }
 
     public function store(StoreDentistRequest $request) {
@@ -50,13 +50,13 @@ class DentistController extends Controller
 
     public function edit(Dentist $dentist) {
         try {
-            $dentist_specializations = DentistSpecialization::get();
+            $dentistSpecializations = DentistSpecialization::get();
             $dentist = $this->dentistService->findById($dentist->id);
         } catch (\Exception $e) {
             return back()->withError($e->getMessage())->withInput();
         }
 
-        return view('admin/dentist/edit', compact('dentist', 'dentist_specializations'));
+        return view('admin/dentist/edit', compact('dentist', 'dentistSpecializations'));
     }
 
     public function update(UpdateDentistRequest $request, Dentist $dentist) {

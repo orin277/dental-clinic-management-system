@@ -4,10 +4,10 @@
         <div class="relative w-full h-full overflow-y-auto dark:bg-gray-900 lg:ml-64">
             <div class="rounded-lg shadow mx-10 mt-8 px-14 py-8 bg-white border-b border-gray-200">
                 <div class="flex flex-col">
-                    <h2 class="mb-4 text-2xl font-inter-bold text-gray-900 dark:text-white">Запис на прийом</h2>
+                    <x-admin-panel.h2>Запис на прийом</x-admin-panel.h2>
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                         <div>
-                            <label for="dentist_id" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Cтоматолог</label>
+                            <x-form.label for="dentist_id">Cтоматолог</x-form.label>
                             <select id="dentist" name="dentist_id" class="w-11/12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 @foreach ($dentists as $dentist)
                                     <option value="{{ $dentist->id }}"
@@ -16,10 +16,9 @@
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="w-full">
-                            <label for="date" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Дата</label>
-                            <input type="date" name="date" id="date" value="{{ old('date',date('Y-m-d', time())) }}" class="w-48 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                            <x-form.label for="date">Дата</x-form.label>
+                            <x-form.date-input name="date" id="date" :value="date('Y-m-d', time())" required />
                         </div>
                     </div>
                 </div>
@@ -30,7 +29,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>
@@ -67,9 +65,7 @@
                             <label for="modal-cabinet" class="absolute sm:text-xl text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Кабінет</label>
                         </div>
                     </div>
-                    <button id="confirm-button" type="submit" class="mt-1 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-inter-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Записатись
-                    </button>
+                    <x-form.button>Записатись</x-form.button>
                 </form>
             </div>
         </div>

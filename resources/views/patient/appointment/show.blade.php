@@ -3,8 +3,7 @@
         <x-sidebar/>
         <div class="px-14 py-8 relative w-full h-full overflow-y-auto dark:bg-gray-900 lg:ml-64">
             <div class="flex flex-col">
-                <h2 class="mb-4 text-2xl font-inter-bold text-gray-900 dark:text-white">Детальна інформація прийому</h2>
-
+                <x-admin-panel.h2>Детальна інформація прийому</x-admin-panel.h2>
                 <div class="w-4/5 max-w-md bg-white rounded-lg shadow overflow-hidden md:max-w-2xl mb-3 mt-3 border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                     <div class="md:flex">
                         <div class="p-8">
@@ -32,10 +31,7 @@
                     </div>
                 </div>
                 @endforeach
-
-
             </div>
         </div>
-
     </div>
 </x-app-layout>

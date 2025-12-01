@@ -4,32 +4,25 @@
         <div class="relative w-full h-full overflow-y-auto dark:bg-gray-900 lg:ml-64">
             <div class="w-2/5 rounded-lg shadow mx-10 mt-8 px-14 py-8 bg-white border-b border-gray-200">
                 <div class="flex flex-col">
-                    <h2 class="mb-4 text-2xl font-inter-bold text-gray-900 dark:text-white">Додати рахунок до прийому №{{ $appointmentId }}</h2>
+                    <x-admin-panel.h2>Додати рахунок до прийому №{{ $appointmentId }}</x-admin-panel.h2>
                     <form id="form-bill" action="{{ route('dentist.bills.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="appointment_id" value="{{ $appointmentId }}">
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="w-full">
                                 <label for="amount" class="block mb-2 text-sm font-inter-medium text-gray-900 dark:text-white">Вартість</label>
-                                <input type="number" name="amount" id="amount" value="{{ old('amount') }}" min="1" max="1000000" class="@error('amount') bg-red-50 border-red-500 text-red-900 placeholder-red-700 @else bg-gray-50 border-gray-300 text-gray-900 @enderror border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
-                                @error('amount')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                                @enderror
+                                <x-form.number-input name="amount" id="amount" min="1" max="1000000" required />
+                                <x-form.input-error :messages="$errors->get('amount')" class="mt-2" />
                             </div>
                         </div>
-                        <button type="submit" class="font-inter-medium mt-6 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            Додати
-                        </button>
+                        <x-form.button>Додати</x-form.button>
                     </form>
                     <form class="sm:pr-3 flex items-center w-full space-x-3 md:w-auto"
                           action="{{ route('dentist.generate_pdf_information_about_bills', $appointmentId) }}" method="GET">
-                        <button type="submit" class="font-inter-medium mt-6 inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            Сформувати звіт
-                        </button>
+                        <x-form.button>Сформувати звіт</x-form.button>
                     </form>
                 </div>
             </div>
-
 
             <div id="bills" class="mx-10 mt-8 mb-8">
                 @foreach ($bills as $bill)
@@ -47,9 +40,7 @@
                             <form action="{{ route('dentist.bills.destroy', $bill->id) }}" method="POST" class="">
                                 @csrf
                                 @method('destroy')
-                                <button type="submit" class="px-4 py-2 border border-transparent text-sm font-inter-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                    Видалити
-                                </button>
+                                <x-form.button>Видалити</x-form.button>
                             </form>
                         </div>
                     </div>
