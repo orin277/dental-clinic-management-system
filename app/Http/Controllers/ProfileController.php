@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Intervention\Image\Laravel\Facades\Image;
 
 class ProfileController extends Controller
 {
+    public function __construct(private UserService $service) {
+
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -28,25 +32,8 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = $request->user()->id . time() . '.' . $request->avatar->getClientOriginalExtension();
-            //$request->avatar->move(public_path('storage/avatars/'), $filename);
-            //$request->file('avatar')->store('storage/avatars/avatars');
-            //Image::make($avatar)->resize(300, 300)->save(public_path('uploads/avatars/' . $filename))
-            Image::read($avatar)->resize(512, 512)->save(public_path('storage/avatars/' . $filename));
-
-            $request->user()->avatar = $filename;
-        }
-
-        $request->user()->save();
-
+        $validated = $request->validated();
+        $this->service->update($validated, Auth::user());
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
@@ -58,12 +45,8 @@ class ProfileController extends Controller
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
-
-        $user = $request->user();
-
         Auth::logout();
-
-        $user->delete();
+        $this->service->delete(Auth::user());
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
