@@ -30,4 +30,9 @@ class Dentist extends Model
     {
         return $this->hasMany(Schedule::class);
     }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
 }

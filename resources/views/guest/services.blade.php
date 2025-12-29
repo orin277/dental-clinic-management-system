@@ -2,7 +2,6 @@
     <div class="mt-6 mb-8">
         <h1 class="text-5xl font-inter-bold text-black">Послуги</h1>
     </div>
-
     <div id="accordion-color" data-accordion="collapse" data-inactive-classes="bg-white text-gray-500" data-active-classes="bg-blue-600 dark:bg-gray-800 text-white dark:text-white">
         @php($count = 1)
         @foreach($typeOfServices as $typeOfService)

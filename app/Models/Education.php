@@ -12,4 +12,9 @@ class Education extends Model
     protected $table = 'educations';
 
     protected $guarded = [];
+
+    public function dentist()
+    {
+        return $this->belongsTo(Dentist::class);
+    }
 }
